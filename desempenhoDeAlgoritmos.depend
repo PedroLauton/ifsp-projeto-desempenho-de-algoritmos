@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1717104451 source:c:\users\ednal\downloads\ desempenhodealgoritmos\desempenhodealgoritmos.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<math.h>
+	"desempenhoDeAlgoritmos.h"
+
+1717104451 c:\users\ednal\downloads\ desempenhodealgoritmos\desempenhodealgoritmos.h
+
+1717102045 source:c:\users\ednal\downloads\ desempenhodealgoritmos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"desempenhoDeAlgoritmos.h"
+
