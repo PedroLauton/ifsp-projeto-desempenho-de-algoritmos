@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="desempenhoDeAlgoritmos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="desempenhoDeAlgoritmos.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
