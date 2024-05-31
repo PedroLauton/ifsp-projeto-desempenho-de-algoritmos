@@ -22,3 +22,4 @@ void insertionSort(int *v, int n);
 void radixSort(int *arr, int n);
 void radixSort(int *arr, int n);
 int getMax(int *arr, int n);
+char* nomeAlgoritmo(int escolhaAlgoritmo);

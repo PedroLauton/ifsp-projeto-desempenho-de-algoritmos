@@ -65,232 +65,99 @@ int escolheValor(int escolhaElementos){
         default: return 0;
     }
 }
+
+void* escolheAlgoritmo(int escolhaAlgoritmo){
+    switch(escolhaAlgoritmo){
+        case 1: return bubbleSort;
+        case 2: return insertionSort;
+        case 3: return selectionSort;
+        case 4: return shellsort;
+        case 5: return mergeSort;
+        case 6: return quickSort;
+        case 7: return heapSort;
+        case 8: return radixSort;
+        case 9: return countingSort;
+        case 10: return timSort;
+        default: return 0;
+    }
+}
+
+char* nomeAlgoritmo(int escolhaAlgoritmo){
+    switch(escolhaAlgoritmo){
+        case 1: return "BubbleSort";
+        case 2: return "InsertionSort";
+        case 3: return "SelectionSort";
+        case 4: return "Shellsort";
+        case 5: return "MergeSort";
+        case 6: return "QuickSort";
+        case 7: return "HeapSort";
+        case 8: return "RadixSort";
+        case 9: return "CountingSort";
+        case 10: return "TimSort";
+        default: return "Erro";
+    }
+}
+
 void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
     struct timeval start, end;
     long seconds, useconds;
     double total_time;
     int extensaoVetor = escolheValor(escolhaElementos);
-
+    char* nomeDoAlgoritmo = nomeAlgoritmo(escolhaAlgoritmo);
     int* vetorMelhorCaso = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetorMelhorCaso == NULL){
         printf("\nErro na alocacao de memoria. Tente novamente.");
         return;
     }
-
     for(int i = 0; i < extensaoVetor; i++){
         vetorMelhorCaso[i] = i;
     }
-
     int* vetorPiorCaso = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetorPiorCaso == NULL){
         printf("\nErro na alocacao de memoria. Tente novamente.");
         return;
     }
-
     for(int i = extensaoVetor, k = 0; i > 0 ; i--, k++){
         vetorPiorCaso[k] = i;
     }
-
-    switch(escolhaAlgoritmo){
-        case 1:
-            gettimeofday(&start, NULL);
-            bubbleSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do BubbleSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            bubbleSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do BubbleSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 2:
-            gettimeofday(&start, NULL);
-            insertionSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do InsertionSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            insertionSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do InsertionSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 3:
-            gettimeofday(&start, NULL);
-            selectionSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do SelectionSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            selectionSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do SelectionSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 4:
-            gettimeofday(&start, NULL);
-            shellsort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do ShellSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            shellsort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do ShellSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 5:
-            gettimeofday(&start, NULL);
-            mergeSort(vetorMelhorCaso, 0, extensaoVetor - 1);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do MergeSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            mergeSort(vetorPiorCaso, 0, extensaoVetor - 1);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do MergeSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 6:
-            gettimeofday(&start, NULL);
-            quickSort(vetorMelhorCaso, 0, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do QuickSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            quickSort(vetorPiorCaso, 0, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do QuickSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 7:
-            gettimeofday(&start, NULL);
-            heapSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do TimSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            heapSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do TimSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 8:
-            gettimeofday(&start, NULL);
-            radixSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do RadixSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            radixSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do RadixSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 9:
-            gettimeofday(&start, NULL);
-            countingSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do CountingSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            countingSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do CountingSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
-
-        case 10:
-            gettimeofday(&start, NULL);
-            timSort(vetorMelhorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("\nMelhor tempo de ordenacao do TimSort: %.3f microssegundos\n", total_time);
-            free(vetorMelhorCaso);
-
-            gettimeofday(&start, NULL);
-            timSort(vetorPiorCaso, extensaoVetor);
-            gettimeofday(&end, NULL);
-            seconds  = end.tv_sec  - start.tv_sec;
-            useconds = end.tv_usec - start.tv_usec;
-            total_time = (seconds * 1000000 + useconds);
-            printf("Pior tempo de ordenacao do TimSort: %.3f microssegundos\n", total_time);
-            free(vetorPiorCaso);
-            break;
+    if(escolhaAlgoritmo == 5 || escolhaAlgoritmo == 6){
+        void (*algoritmo)(int*, int, int);
+        algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
+        gettimeofday(&start, NULL);
+        algoritmo(vetorMelhorCaso, 0, extensaoVetor);
+        gettimeofday(&end, NULL);
+        seconds  = end.tv_sec  - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        total_time = (seconds * 1000000 + useconds);
+        printf("\nMelhor tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        free(vetorMelhorCaso);
+        gettimeofday(&start, NULL);
+        algoritmo(vetorPiorCaso, 0, extensaoVetor);
+        gettimeofday(&end, NULL);
+        seconds  = end.tv_sec  - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        total_time = (seconds * 1000000 + useconds);
+        printf("Pior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        free(vetorPiorCaso);
+    }else{
+        void (*algoritmo)(int*, int);
+        algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
+        gettimeofday(&start, NULL);
+        algoritmo(vetorMelhorCaso, extensaoVetor);
+        gettimeofday(&end, NULL);
+        seconds  = end.tv_sec  - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        total_time = (seconds * 1000000 + useconds);
+        printf("\nMelhor tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        free(vetorMelhorCaso);
+        gettimeofday(&start, NULL);
+        algoritmo(vetorPiorCaso, extensaoVetor);
+        gettimeofday(&end, NULL);
+        seconds  = end.tv_sec  - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+        total_time = (seconds * 1000000 + useconds);
+        printf("Pior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        free(vetorPiorCaso);
     }
 }
 double medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
@@ -298,211 +165,46 @@ double medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
     long seconds, useconds;
     double total_time, mediaTempoDeExecucao = 0;
     int extensaoVetor = escolheValor(escolhaElementos);
-
-    switch(escolhaAlgoritmo){
-        case 1:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                bubbleSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
+    if(escolhaAlgoritmo == 5 || escolhaAlgoritmo == 6){
+        void (*algoritmo)(int*, int, int);
+        algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
+        for(int i = 0; i < 10; i++){
+            int *vetor = alocacaoVetor(extensaoVetor);
+            if(vetor == NULL){
+                printf("\nErro na alocacao de memoria. Tente novamente.");
+                break;
             }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 2:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                insertionSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
+            gettimeofday(&start, NULL);
+            algoritmo(vetor, 0, extensaoVetor);
+            gettimeofday(&end, NULL);
+            seconds  = end.tv_sec  - start.tv_sec;
+            useconds = end.tv_usec - start.tv_usec;
+            total_time = (seconds * 1000000 + useconds);
+            mediaTempoDeExecucao += total_time;
+            free(vetor);
+        }
+        medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
+        return (mediaTempoDeExecucao/10);
+    }else{
+        void (*algoritmo)(int*, int);
+        algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
+        for(int i = 0; i < 10; i++){
+            int *vetor = alocacaoVetor(extensaoVetor);
+            if(vetor == NULL){
+                printf("\nErro na alocacao de memoria. Tente novamente.");
+                break;
             }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 3:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                selectionSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 4:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                shellsort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 5:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                mergeSort(vetor, 0, extensaoVetor - 1);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 6:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                quickSort(vetor, 0, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 7:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                heapSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 8:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                radixSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 9:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                countingSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        case 10:
-            for(int i = 0; i < 10; i++){
-                int *vetor = alocacaoVetor(extensaoVetor);
-                if(vetor == NULL){
-                    printf("\nErro na alocacao de memoria. Tente novamente.");
-                    break;
-                }
-                gettimeofday(&start, NULL);
-                timSort(vetor, extensaoVetor);
-                gettimeofday(&end, NULL);
-                seconds  = end.tv_sec  - start.tv_sec;
-                useconds = end.tv_usec - start.tv_usec;
-                total_time = (seconds * 1000000 + useconds);
-                mediaTempoDeExecucao += total_time;
-                free(vetor);
-            }
-            medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-            return (mediaTempoDeExecucao/10);
-            break;
-
-        default:
-            return 0;
-            break;
+            gettimeofday(&start, NULL);
+            algoritmo(vetor, extensaoVetor);
+            gettimeofday(&end, NULL);
+            seconds  = end.tv_sec  - start.tv_sec;
+            useconds = end.tv_usec - start.tv_usec;
+            total_time = (seconds * 1000000 + useconds);
+            mediaTempoDeExecucao += total_time;
+            free(vetor);
+        }
+        medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
+        return (mediaTempoDeExecucao/10);
     }
 }
 
