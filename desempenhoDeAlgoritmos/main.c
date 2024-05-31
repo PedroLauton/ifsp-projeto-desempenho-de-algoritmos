@@ -27,6 +27,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do BubbleSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -43,6 +47,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do InsertionSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -59,6 +67,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do SelectionSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -75,6 +87,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do ShellSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -87,10 +103,15 @@ int main()
                         printf("\nValor incoerente. Por favor, escolha novamente.\n\n");
                         system("pause");
                         fflush(stdin);
+                        break;
                     }
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do MergeSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -107,6 +128,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do QuickSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -123,6 +148,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do HeapSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -139,6 +168,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do RadixSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -155,6 +188,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do CountingSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
@@ -171,6 +208,10 @@ int main()
                     if(escolhaElementos == 7){
                         continue;
                     }
+                    double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
+                    printf("\nTempo medio de ordenacao do TimSort: %.3f microssegundos\n\n", tempoDeExecucao);
+                    fflush(stdin);
+                    system("pause");
                 }
                 break;
 
