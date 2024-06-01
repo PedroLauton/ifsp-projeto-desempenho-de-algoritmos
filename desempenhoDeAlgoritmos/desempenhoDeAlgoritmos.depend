@@ -45,3 +45,19 @@
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
 
+1717260230 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"desempenhoDeAlgoritmos.h"
+
+1717267218 c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
+
+1717284863 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<sys/time.h>
+	<math.h>
+	<string.h>
+	"desempenhoDeAlgoritmos.h"
+

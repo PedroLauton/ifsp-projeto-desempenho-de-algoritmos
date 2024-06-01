@@ -9,28 +9,28 @@
 #define MIN_RUN 32
 #define TAMANHO 300
 
-/** EXPLICAÇÃO: Olá pessoa! Espero que esteja tudo bem com vocês (obs: Gabi, não me mata).
-Venho aqui falar um pouco sobre o código e o como ocorre a sua lógica. Para começar, no "main" ocorre a básica escolha do menu,
-onde o usuário escolhe qual dos algoritmos ele deseja por meio do número associado a ele. Caso ele escolha um número ou letra incompatíveis,
-o programa o alerta e impede que ele prossiga no código. A mesma coisa se aplica na seleção da quantidade de elementos escolhidos para ordenação.
-Pois bem, se todos os inputs estiverem corretos o programa chama a seguinte função:
+/** EXPLICAÇÃO: Olá pessoal! Espero que esteja tudo bem com vocês (obs: Gabi, não me mata). Venho aqui falar um pouco sobre o
+código e como ocorre a sua lógica. Para começar, no "main" ocorre a escolha básica do menu, onde o usuário escolhe qual dos algoritmos
+ele deseja, digitando o número associado a cada função. Caso ele escolha um número ou uma letra incompatível, o programa exibi um alerta e impede que o usuário
+prossiga no código. O mesmo se aplica à seleção da quantidade de elementos escolhidos para ordenação. Pois bem, se todos os inputs estiverem
+corretos, o programa chama a seguinte função:
 
 "medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);"
 
-passando como argumentos o algoritmo escolhido e a escolha dos elementos. Feito isso, entramos na função que gere todo o programa. Vocês devem estar se
-perguntando o que são as fuções de switch case que retornam números, algoritmos e nomes de funções, e agora vou explicar o motivo dessa lógica.
-Era uma vez o Pedro Lauton pensando em como fazer para selecionar os diversos algoritmos que temos nesse projeto. Ele pensou em fazer um switch case para cada um,
-e foi o que ele fez. Nesse póstumo switch case, Pedro reparou que o código em cada case era o mesmo para quase todas as funções, a única coisa que mudava era o nome da função que estava
-sendo chamada. Assim tinhamos 10 cases iguais em que a única diferença era só as chamadas das funções. Pensando nisso, o nosso pequeno Pedro Lauton se perguntou se não havia algum método de
-fazer apenas um único bloco genérico que mudava apenas a chamada da função de acordo com o valor escolhido pelo usuário. Após um período de pesquisa, Pedro encontrou algo que lhe servia perfeitamente,
-um ponteiro para função! Esse ponteiro era perfeito, porque o mesmo bloco de código podia ativar diferentes funções e assim economizar um gigante switch case (Economizou cerca de 300 linhas de código,
-o Pedro ficou bem feliz com essa otimização!). Para exemplificar, abaixo será mostrado o ponteiro:
+passando como argumentos o algoritmo escolhido e a escolha dos elementos. Feito isso, entramos na função que gere todo o programa. Vocês devem
+estar se perguntando o que são as funções de switch case que retornam números, algoritmos e nomes de funções, e agora vou explicar o motivo dessa lógica.
+Era uma vez o Pedro Lauton pensando em como fazer para selecionar os diversos algoritmos que temos nesse projeto. Ele pensou em fazer um switch case para
+cada um, e foi o que ele fez. Nesse switch case, Pedro reparou que o código em cada case era o mesmo para quase todas as funções, a única coisa que mudava
+era o nome da função que estava sendo chamada. Assim, tínhamos 10 cases iguais em que a única diferença era só as chamadas das funções. Pensando nisso, o nosso
+pequeno Pedro Lauton se perguntou se não havia algum método de fazer apenas um único bloco genérico que mudasse apenas a chamada da função de acordo com o valor
+escolhido pelo usuário. Após um período de pesquisa, Pedro encontrou algo que lhe servia perfeitamente, um ponteiro para função! Esse ponteiro era perfeito, porque
+o mesmo bloco de código podia ativar diferentes funções e, assim, economizar um grande switch case (economizou cerca de 300 linhas de código, o Pedro ficou bem feliz com essa otimização!).
+Para exemplificar, abaixo será mostrado o ponteiro:
 
 "void (*algoritmo)(int*, int);"
 
-Ele é do tipo void pois as funções que ele referencia também são. No "(*algoritmo)" passamos o ponteiro da função e logo após explanamos os argumentos que essa função vai ter.
-Assim, para escolher a função que será referenciada pelo "(*algoritmo)" usamos outra função:
-
+Ele é do tipo void, pois as funções que ele referencia também são. No "(*algoritmo)" passamos o ponteiro da função e logo após explanamos os argumentos que
+essa função vai ter. Assim, para escolher a função que será referenciada pelo "(*algoritmo)" usamos outra função:
 
 void* escolheAlgoritmo(int escolhaAlgoritmo){
     switch(escolhaAlgoritmo){
@@ -48,8 +48,9 @@ void* escolheAlgoritmo(int escolhaAlgoritmo){
     }
 }
 
-De acordo com a entrada do usuário, o endereço de uma função é devolvida, tornando o sonho do pequeno Pedro Lauton realizado, o sonho de ter um bloco genérico que lhe permitia ter menos linhas de códigos.
-Outras funções também foram feitas para referenciar algo, como a conversão do número digitado pelo usuário em quantidades plausíveis para ordenação, como mostra a função abaixo:
+De acordo com a entrada do usuário, o endereço de uma função é devolvido, tornando o sonho do pequeno Pedro Lauton realizado, o sonho de ter um bloco genérico
+que lhe permitisse ter menos linhas de código. Outras funções também foram feitas para referenciar algo, como a conversão do número digitado pelo usuário em
+quantidades plausíveis para ordenação, como mostra a função abaixo:
 
 int escolheValor(int escolhaElementos){
     switch(escolhaElementos){
@@ -81,16 +82,14 @@ char* nomeAlgoritmo(int escolhaAlgoritmo){
     }
 }
 
-Ela se torna necessária uma vez que o bloco genérico é estático e somente troca a função com base no ponteiro, então, para trocar
-o nome da função de acordo com a função escolhida foi feita uma função que retorna a string com o devido nome da função, não é demais?
-
-Vale ressaltar que duas funções exigem mais do que dois argumentos (Merge e Quick), por isso, foi feita uma exceção para as duas, onde o ponteiro comporta
-três argumentos:
+Ela se torna necessária uma vez que o bloco genérico é estático e somente troca a função com base no ponteiro. Então, para trocar o nome da função de
+acordo com a função escolhida, foi feito um código que retorna a string com o devido nome da função. Não é demais? Vale ressaltar que duas funções exigem mais
+do que dois argumentos (Merge e Quick), por isso foi feita uma exceção para as duas, onde o ponteiro comporta três argumentos:
 
 "void (*algoritmo)(int*, int, int);"
 
-O restante do código é alocação de vetores e os algoritmos de orndeção, acredito que não precisam ser explicados.
-Dessa forma, creio que as principais dúvidas tenham sido sanadas. Qualquer coisa estou a disposição para mais um Contos de Pedro Lauton!
+O restante do código é alocação de vetores e os algoritmos de ordenação, acredito que não precisam ser explicados. Dessa forma, creio que as principais dúvidas tenham
+sido sanadas. Qualquer coisa, estou à disposição para mais um Contos de Pedro Lauton!
 
 Até mais!
 **/
