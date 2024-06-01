@@ -13,7 +13,7 @@ int main()
         scanf("%d", &escolhaAlgoritmo);
         fflush(stdin);
         if(!(escolhaAlgoritmo >= 1 && escolhaAlgoritmo <= 11)){
-            printf("\nValor incoerente. Por favor, escolha novamente.\n\n");
+            printf("\n\tERRO - Valor invalido. Por favor, insira um valido.\n\n");
             system("pause");
             continue;
         }
@@ -23,7 +23,7 @@ int main()
                 escolhaMenuElementos();
                 scanf("%d", &escolhaElementos);
                 if(escolhaElementos < 1 || escolhaElementos > 7){
-                    printf("\nValor incoerente. Por favor, escolha novamente.\n\n");
+                    printf("\n\tERRO - Valor invalido. Por favor, insira um valido.\n\n");
                     system("pause");
                     fflush(stdin);
                     continue;
@@ -31,13 +31,12 @@ int main()
                 if(escolhaElementos == 7){
                     continue;
                 }
-                double tempoDeExecucao = medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
-                printf("\nTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeAlgoritmo(escolhaAlgoritmo), tempoDeExecucao);
+                medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);
                 fflush(stdin);
                 system("pause");
             }
         }else{
-            printf("\nEncerrando...\n");
+            printf("\n\tEncerrando...\n");
         }
     }while(escolhaAlgoritmo != 11);
 }
