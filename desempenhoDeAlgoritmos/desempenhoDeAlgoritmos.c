@@ -9,92 +9,6 @@
 #define MIN_RUN 32
 #define TAMANHO 300
 
-/** EXPLICAÇÃO: Olá pessoal! Espero que esteja tudo bem com vocês (obs: Gabi, não me mata). Venho aqui falar um pouco sobre o
-código e como ocorre a sua lógica. Para começar, no "main" ocorre a escolha básica do menu, onde o usuário escolhe qual dos algoritmos
-ele deseja, digitando o número associado a cada função. Caso ele escolha um número ou uma letra incompatível, o programa exibi um alerta e impede que o usuário
-prossiga no código. O mesmo se aplica à seleção da quantidade de elementos escolhidos para ordenação. Pois bem, se todos os inputs estiverem
-corretos, o programa chama a seguinte função:
-
-"medicaoDeTempo(escolhaAlgoritmo, escolhaElementos);"
-
-passando como argumentos o algoritmo escolhido e a escolha dos elementos. Feito isso, entramos na função que gere todo o programa. Vocês devem
-estar se perguntando o que são as funções de switch case que retornam números, algoritmos e nomes de funções, e agora vou explicar o motivo dessa lógica.
-Era uma vez o Pedro Lauton pensando em como fazer para selecionar os diversos algoritmos que temos nesse projeto. Ele pensou em fazer um switch case para
-cada um, e foi o que ele fez. Nesse switch case, Pedro reparou que o código em cada case era o mesmo para quase todas as funções, a única coisa que mudava
-era o nome da função que estava sendo chamada. Assim, tínhamos 10 cases iguais em que a única diferença era só as chamadas das funções. Pensando nisso, o nosso
-pequeno Pedro Lauton se perguntou se não havia algum método de fazer apenas um único bloco genérico que mudasse apenas a chamada da função de acordo com o valor
-escolhido pelo usuário. Após um período de pesquisa, Pedro encontrou algo que lhe servia perfeitamente, um ponteiro para função! Esse ponteiro era perfeito, porque
-o mesmo bloco de código podia ativar diferentes funções e, assim, economizar um grande switch case (economizou cerca de 300 linhas de código, o Pedro ficou bem feliz com essa otimização!).
-Para exemplificar, abaixo será mostrado o ponteiro:
-
-"void (*algoritmo)(int*, int);"
-
-Ele é do tipo void, pois as funções que ele referencia também são. No "(*algoritmo)" passamos o ponteiro da função e logo após explanamos os argumentos que
-essa função vai ter. Assim, para escolher a função que será referenciada pelo "(*algoritmo)" usamos outra função:
-
-void* escolheAlgoritmo(int escolhaAlgoritmo){
-    switch(escolhaAlgoritmo){
-        case 1: return bubbleSort;
-        case 2: return insertionSort;
-        case 3: return selectionSort;
-        case 4: return shellsort;
-        case 5: return mergeSort;
-        case 6: return quickSort;
-        case 7: return heapSort;
-        case 8: return radixSort;
-        case 9: return countingSort;
-        case 10: return timSort;
-        default: return NULL;
-    }
-}
-
-De acordo com a entrada do usuário, o endereço de uma função é devolvido, tornando o sonho do pequeno Pedro Lauton realizado, o sonho de ter um bloco genérico
-que lhe permitisse ter menos linhas de código. Outras funções também foram feitas para referenciar algo, como a conversão do número digitado pelo usuário em
-quantidades plausíveis para ordenação, como mostra a função abaixo:
-
-int escolheValor(int escolhaElementos){
-    switch(escolhaElementos){
-        case 1: return 1000;
-        case 2: return 5000;
-        case 3: return 10000;
-        case 4: return 20000;
-        case 5: return 50000;
-        case 6: return 100000;
-        default: return 0;
-    }
-}
-
-E por fim, temos a seguinte função:
-
-char* nomeAlgoritmo(int escolhaAlgoritmo){
-    switch(escolhaAlgoritmo){
-        case 1: return "BubbleSort";
-        case 2: return "InsertionSort";
-        case 3: return "SelectionSort";
-        case 4: return "Shellsort";
-        case 5: return "MergeSort";
-        case 6: return "QuickSort";
-        case 7: return "HeapSort";
-        case 8: return "RadixSort";
-        case 9: return "CountingSort";
-        case 10: return "TimSort";
-        default: return NULL;
-    }
-}
-
-Ela se torna necessária uma vez que o bloco genérico é estático e somente troca a função com base no ponteiro. Então, para trocar o nome da função de
-acordo com a função escolhida, foi feito um código que retorna a string com o devido nome da função. Não é demais? Vale ressaltar que duas funções exigem mais
-do que dois argumentos (Merge e Quick), por isso foi feita uma exceção para as duas, onde o ponteiro comporta três argumentos:
-
-"void (*algoritmo)(int*, int, int);"
-
-O restante do código é alocação de vetores e os algoritmos de ordenação, acredito que não precisam ser explicados. Dessa forma, creio que as principais dúvidas tenham
-sido sanadas. Qualquer coisa, estou à disposição para mais um Contos de Pedro Lauton!
-
-Até mais!
-**/
-
-
 /** MENU PRINCIPAL **/
 void escolhaMenuAlgoritmos(){
     printf(
@@ -131,20 +45,21 @@ void escolhaMenuElementos(){
     );
 }
 
-/** ALOCAÇÃO DO VETOR **/
+/** ALOCAÇÃO DO VETOR DINÂMICO **/
 int *alocacaoVetor(int extensaoVetor){
     int* vetor = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetor == NULL){
         return NULL;
     }
+    // Iniciando o gerador de números aleatorios rand() e configurando a semente para o tempo atual para sempre gerar números diferentes
     srand(time(NULL));
     for(int i = 0; i < extensaoVetor; i++){
-        vetor[i] = rand() % 10;
+        vetor[i] = rand() % 10; // Preenchendo o vetor com números de 0 - 9
     }
     return vetor;
 }
 
-/** ESCOLHA DO VALOR A SER ORDENADO **/
+/** ESCOLHA DA QUANTIDADE A SER ORDENADO **/
 int escolheValor(int escolhaElementos){
     switch(escolhaElementos){
         case 1: return 1000;
@@ -157,7 +72,7 @@ int escolheValor(int escolhaElementos){
     }
 }
 
-/** ESCOLHA DO ALGORITMO **/
+/** PONTEIRO PARA A ESCOLHA DO ALGORITMO **/
 void* escolheAlgoritmo(int escolhaAlgoritmo){
     switch(escolhaAlgoritmo){
         case 1: return bubbleSort;
@@ -249,7 +164,9 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         return;
     }
 
+    // Algoritmos Merge e Quick precisam de mais argumentos que os outros
     if(escolhaAlgoritmo == 5 || escolhaAlgoritmo == 6){
+        // Cria-se um ponteiro para a função
         void (*algoritmo)(int*, int, int);
         algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
         if(algoritmo == NULL){
@@ -257,10 +174,12 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
             system("pause");
             return;
         }
-
+        // pega o tempo inicial
         gettimeofday(&start, NULL);
-        algoritmo(vetorMelhorCaso, 0, extensaoVetor);
+        //executa o algoritmo selecionado
+        algoritmo(vetorMelhorCaso, 0, extensaoVetor-1);
         gettimeofday(&end, NULL);
+        //realiza o calculo
         seconds  = end.tv_sec  - start.tv_sec;
         useconds = end.tv_usec - start.tv_usec;
         total_time = (seconds * 1000000 + useconds);
@@ -268,7 +187,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         free(vetorMelhorCaso);
 
         gettimeofday(&start, NULL);
-        algoritmo(vetorPiorCaso, 0, extensaoVetor);
+        algoritmo(vetorPiorCaso, 0, extensaoVetor-1);
         gettimeofday(&end, NULL);
         seconds  = end.tv_sec  - start.tv_sec;
         useconds = end.tv_usec - start.tv_usec;
@@ -435,17 +354,19 @@ void merge(int *v, int inicio, int meio, int fim){
     free(temp);
 }
 
-int particiona(int *V, int inicio, int final ){
+/** ALGORITMO QUICKSORT **/
+int particiona(int *V, int inicio, int final){
     int esq, dir, pivo, aux;
     esq = inicio;
     dir = final;
     pivo = V[inicio];
     while(esq < dir){
-        while(esq <= final && V[esq] <= pivo)
+        while(esq <= final && V[esq] <= pivo){
             esq++;
-
-        while(dir >= 0 && V[dir] > pivo)
+        }
+        while(dir >= 0 && V[dir] > pivo){
             dir--;
+        }
 
         if(esq < dir){
             aux = V[esq];
@@ -457,8 +378,6 @@ int particiona(int *V, int inicio, int final ){
     V[dir] = pivo;
     return dir;
 }
-
-/** ALGORITMO QUICKSORT **/
 void quickSort(int *V, int inicio, int fim) {
     int pivo;
     if(fim > inicio){
@@ -509,7 +428,6 @@ void timSort(int *vetor, int n) {
         size = 2 * size;
     }
 }
-
 int minRunLength(int n) {
     int r = 0;
     while (n >= MIN_RUN) {
@@ -597,7 +515,6 @@ void heapify(int *vetor, int tamanho, int i) {
         heapify(vetor, tamanho, maior);
     }
 }
-
 void heapSort(int *vetor, int tamanho) {
     for (int i = tamanho / 2 - 1; i >= 0; i--)
         heapify(vetor, tamanho, i);
@@ -619,16 +536,6 @@ void insertionSort(int *v, int n){
         }
         v[j] = aux;
     }
-}
-
-int getMax(int *arr, int n) {
-    int max = arr[0];
-    for (int i = 1; i < n; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    }
-    return max;
 }
 
 /** ALGORITMO COUNTSORT **/
@@ -653,6 +560,15 @@ void countSort(int *arr, int n, int exp) {
 }
 
 /** ALGORITMO REDIXSORT **/
+int getMax(int *arr, int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
 void radixSort(int *arr, int n) {
     int max = getMax(arr, n);
     for (int exp = 1; max / exp > 0; exp *= 10) {
