@@ -9,8 +9,9 @@ int main()
         system("cls");
         int escolhaElementos = 0;
         escolhaAlgoritmo = 0;
+        // Escolha dos algoritmos
         escolhaMenuAlgoritmos();
-        scanf("%d", &escolhaAlgoritmo);
+        scanf(" %d", &escolhaAlgoritmo);
         fflush(stdin);
         if(!(escolhaAlgoritmo >= 1 && escolhaAlgoritmo <= 11)){
             printf("\n\tERRO - Valor invalido. Por favor, insira um valido.\n\n");
@@ -20,14 +21,16 @@ int main()
         if(escolhaAlgoritmo != 11){
             while(!(escolhaElementos >= 1 && escolhaElementos <= 7)){
                 system("cls");
-                escolhaMenuElementos();
-                scanf("%d", &escolhaElementos);
+                //escolha da quantidade de elementos
+                escolhaMenuElementos(escolhaAlgoritmo);
+                scanf(" %d", &escolhaElementos);
                 if(escolhaElementos < 1 || escolhaElementos > 7){
                     printf("\n\tERRO - Valor invalido. Por favor, insira um valido.\n\n");
                     system("pause");
                     fflush(stdin);
                     continue;
                 }
+                //volta para a seleção de algoritmo
                 if(escolhaElementos == 7){
                     continue;
                 }

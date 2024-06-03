@@ -14,17 +14,18 @@
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717212494 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
+1717382725 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<sys/time.h>
 	<math.h>
+	<string.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717212494 c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
+1717381118 c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
 
-1717212494 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
+1717357423 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
 	<stdio.h>
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
@@ -45,14 +46,15 @@
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717260230 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
+1717433488 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
 	<stdio.h>
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717267218 c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
+1717435207 c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
+	<sys/time.h>
 
-1717284863 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
+1717436478 source:c:\users\ednal\onedrive\documentos\github\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -60,4 +62,8 @@
 	<math.h>
 	<string.h>
 	"desempenhoDeAlgoritmos.h"
+
+1717365959 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\teste.c
+	<stdio.h>
+	<stdlib.h>
 
