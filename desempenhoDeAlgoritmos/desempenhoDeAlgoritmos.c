@@ -8,8 +8,7 @@
 
 
 //Define do TIMSORT
-#define MIN_RUN 32
-#define TAMANHO 300
+#define MIN_RUN 60
 
 /** MENU PRINCIPAL **/
 void escolhaMenuAlgoritmos(){
