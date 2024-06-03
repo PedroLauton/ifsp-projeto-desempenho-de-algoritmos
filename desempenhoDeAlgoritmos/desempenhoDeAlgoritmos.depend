@@ -14,7 +14,7 @@
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717302345 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
+1717379910 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -23,9 +23,9 @@
 	<string.h>
 	"desempenhoDeAlgoritmos.h"
 
-1717294597 c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
+1717381118 c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\desempenhodealgoritmos.h
 
-1717296023 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
+1717357423 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\main.c
 	<stdio.h>
 	<stdlib.h>
 	"desempenhoDeAlgoritmos.h"
@@ -61,4 +61,8 @@
 	<math.h>
 	<string.h>
 	"desempenhoDeAlgoritmos.h"
+
+1717365959 source:c:\users\gabis\desktop\eda2\projetoalgoritmos\ifsp-projeto-desempenho-de-algoritmos\desempenhodealgoritmos\teste.c
+	<stdio.h>
+	<stdlib.h>
 
