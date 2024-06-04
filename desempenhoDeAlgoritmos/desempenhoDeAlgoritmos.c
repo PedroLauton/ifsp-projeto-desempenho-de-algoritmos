@@ -53,7 +53,7 @@ void escolhaMenuElementos(int escolhaAlgoritmo){
         "\t\t 5. 50.000\n"
         "\t\t 6. 100.000\n\n"
         "\t\t 7. Voltar\n\n"
-        "\t============================================%s\n\n"
+        "\t%s\n\n"
         "\tNumero: "
     , nomeDoAlgoritmo, extensaoDoDivisor);
     //E preciso dar "free" porque "extesaoDoDivisor" esta alocado dinamicamente.
@@ -67,7 +67,7 @@ char* extensorDivisoria(char* nomeDoAlgoritmo){
     /* Aloca memoria. E preciso alocar dinamicamente porque precisamos devolver o endereco
     dessa nova string. Se fosse devolvido somente uma string comum iria dar erro, pois ela seria
     uma variavel local e seria destruida apos o termino dessa funcao. */
-    char *extensao = (char *)calloc(tamanho_nomeDoAlgoritmo+1, sizeof(char));
+    char *extensao = (char *)calloc((tamanho_nomeDoAlgoritmo + 45), sizeof(char));
 
     if(!extensao){
         printf("\n\tErro na alocacao de memoria. Tente novamente.\n\n");
@@ -75,7 +75,7 @@ char* extensorDivisoria(char* nomeDoAlgoritmo){
         return 0;
     }
     //Com base no tamanho do nome do algoritmo, a divisoria e alocada no vetor.
-    for(int i = 0; i < tamanho_nomeDoAlgoritmo; i++){
+    for(int i = 0; i < (44 + tamanho_nomeDoAlgoritmo); i++){
         extensao[i] = '=';
     }
     //retorna o vetor com o tamanho extra da linha divisoria.
@@ -311,10 +311,10 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t============================================%s\n", extensaoDoDivisor);
+        printf("\n\t%s\n", extensaoDoDivisor);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t============================================%s\n\n", extensaoDoDivisor);
+        printf("\t%s\n\n", extensaoDoDivisor);
         free(extensaoDoDivisor);
     }else{
         void (*algoritmo)(int*, int);
@@ -338,10 +338,10 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t============================================%s\n", extensaoDoDivisor);
+        printf("\n\t%s\n", extensaoDoDivisor);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t============================================%s\n\n", extensaoDoDivisor);
+        printf("\t%s\n\n", extensaoDoDivisor);
         free(extensaoDoDivisor);
     }
 }
