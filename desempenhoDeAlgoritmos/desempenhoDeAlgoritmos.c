@@ -39,11 +39,6 @@ void escolhaMenuElementos(int escolhaAlgoritmo){
         return;
     }
 
-    char* extensaoDoDivisor = extensorDivisoria(nomeDoAlgoritmo);
-    if(!extensaoDoDivisor){
-        return;
-    }
-
     printf(
         "\n\t======== QUANTIDADE DE ELEMENTOS - %s ========\n\n"
         "\t\t 1. 1.000\n"
@@ -52,34 +47,29 @@ void escolhaMenuElementos(int escolhaAlgoritmo){
         "\t\t 4. 20.000\n"
         "\t\t 5. 50.000\n"
         "\t\t 6. 100.000\n\n"
-        "\t\t 7. Voltar\n\n"
-        "\t%s\n\n"
-        "\tNumero: "
-    , nomeDoAlgoritmo, extensaoDoDivisor);
-    //E preciso dar "free" porque "extesaoDoDivisor" esta alocado dinamicamente.
-    free(extensaoDoDivisor);
+        "\t\t 7. Voltar\n"
+        , nomeDoAlgoritmo);
+    extensorDivisoria(nomeDoAlgoritmo);
+    printf("\n\tNumero: ");
 }
 
 /** AUMENTA O TAMANHO DO DIVISOR COM BASE NO NOME DO ALGORITMO **/
-char* extensorDivisoria(char* nomeDoAlgoritmo){
+void extensorDivisoria(char* nomeDoAlgoritmo){
     //Verifica o tamanho da string que compoe o nome do algoritmo.
-    int tamanho_nomeDoAlgoritmo = strlen(nomeDoAlgoritmo);
-    /* Aloca memoria. E preciso alocar dinamicamente porque precisamos devolver o endereco
-    dessa nova string. Se fosse devolvido somente uma string comum iria dar erro, pois ela seria
-    uma variavel local e seria destruida apos o termino dessa funcao. */
-    char *extensao = (char *)calloc((tamanho_nomeDoAlgoritmo + 45), sizeof(char));
+    int tamanho_nomeDoAlgoritmo = strlen(nomeDoAlgoritmo), tamanho_base = 44;
+    char *extensao = (char *)calloc((tamanho_nomeDoAlgoritmo + tamanho_base + 1), sizeof(char));
 
     if(!extensao){
         printf("\n\tErro na alocacao de memoria. Tente novamente.\n\n");
         system("pause");
-        return 0;
+        return;
     }
     //Com base no tamanho do nome do algoritmo, a divisoria e alocada no vetor.
-    for(int i = 0; i < (44 + tamanho_nomeDoAlgoritmo); i++){
+    for(int i = 0; i < (tamanho_base + tamanho_nomeDoAlgoritmo); i++){
         extensao[i] = '=';
     }
-    //retorna o vetor com o tamanho extra da linha divisoria.
-    return extensao;
+    printf("\n\t%s\n", extensao);
+    free(extensao);
 }
 
 /** ALOCAÇÃO DO VETOR DINÂMICO **/
@@ -129,7 +119,6 @@ void* escolheAlgoritmo(int escolhaAlgoritmo){
 
 /** NOME DO ALGORIMO SELECIONADO **/
 char* nomeAlgoritmo(int escolhaAlgoritmo){
-    //string literais nao precisam alocar memoria.
     switch(escolhaAlgoritmo){
         case 1: return "BubbleSort";
         case 2: return "InsertionSort";
@@ -237,7 +226,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         algoritmo(vetorPiorCaso, 0, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
         free(vetorPiorCaso);
     }else{
         void (*algoritmo)(int*, int);
@@ -259,7 +248,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         algoritmo(vetorPiorCaso, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
         free(vetorPiorCaso);
     }
 }
@@ -273,11 +262,6 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
     if(nomeDoAlgoritmo == NULL){
         printf("\n\tErro na escolha do nome do algoritmo. Tente novamente.\n\n");
         system("pause");
-        return;
-    }
-
-    char* extensaoDoDivisor = extensorDivisoria(nomeDoAlgoritmo);
-    if(!extensaoDoDivisor){
         return;
     }
 
@@ -311,11 +295,11 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t%s\n", extensaoDoDivisor);
+        extensorDivisoria(nomeDoAlgoritmo);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t%s\n\n", extensaoDoDivisor);
-        free(extensaoDoDivisor);
+        extensorDivisoria(nomeDoAlgoritmo);
+        printf("\n");
     }else{
         void (*algoritmo)(int*, int);
         algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
@@ -338,11 +322,11 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t%s\n", extensaoDoDivisor);
+        extensorDivisoria(nomeDoAlgoritmo);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t%s\n\n", extensaoDoDivisor);
-        free(extensaoDoDivisor);
+        extensorDivisoria(nomeDoAlgoritmo);
+        printf("\n");
     }
 }
 

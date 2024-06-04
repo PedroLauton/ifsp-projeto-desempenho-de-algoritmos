@@ -4,7 +4,7 @@ void escolhaMenuAlgoritmos();
 
 void escolhaMenuElementos(int escolhaAlgoritmo);
 
-char* extensorDivisoria(char* nomeDoAlgoritmo);
+void extensorDivisoria(char* nomeDoAlgoritmo);
 
 int *alocacaoVetor(int extensaoVetor);
 
