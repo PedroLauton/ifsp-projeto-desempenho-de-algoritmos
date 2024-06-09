@@ -25,38 +25,64 @@ void escolhaMenuAlgoritmos(){
         "\t\t 9. CountigSort\n"
         "\t\t 10. TimSort\n\n"
         "\t\t 11. Encerrar\n\n"
-        "\t==========================================\n\n"
+        "\t========================================\n\n"
         "\tNumero: "
     );
 }
 
-/** MENU SEGUNDÁRIO **/
-void escolhaMenuElementos(){
+/** MENU SEGUNDï¿½RIO **/
+void escolhaMenuElementos(int escolhaAlgoritmo){
+    char* nomeDoAlgoritmo = nomeAlgoritmo(escolhaAlgoritmo);
+    if(nomeDoAlgoritmo == NULL){
+        printf("\n\tErro na escolha do nome do algoritmo. Tente novamente.\n\n");
+        system("pause");
+        return;
+    }
+
     printf(
-        "\n\t======== QUANTIDADE DE ELEMENTOS ========\n\n"
+        "\n\t======== QUANTIDADE DE ELEMENTOS - %s ========\n\n"
         "\t\t 1. 1.000\n"
         "\t\t 2. 5.000\n"
         "\t\t 3. 10.000\n"
         "\t\t 4. 20.000\n"
         "\t\t 5. 50.000\n"
         "\t\t 6. 100.000\n\n"
-        "\t\t 7. Voltar\n\n"
-        "\t===========================================\n\n"
-        "\tNumero: "
-    );
+        "\t\t 7. Voltar\n"
+        , nomeDoAlgoritmo);
+    extensorDivisoria(nomeDoAlgoritmo);
+    printf("\n\tNumero: ");
 }
 
-/** ALOCAÇÃO DO VETOR DINÂMICO **/
+/** AUMENTA O TAMANHO DO DIVISOR COM BASE NO NOME DO ALGORITMO **/
+void extensorDivisoria(char* nomeDoAlgoritmo){
+    //Verifica o tamanho da string que compoe o nome do algoritmo.
+    int tamanho_nomeDoAlgoritmo = strlen(nomeDoAlgoritmo), tamanho_base = 44;
+    char *extensao = (char *)calloc((tamanho_nomeDoAlgoritmo + tamanho_base + 1), sizeof(char));
+
+    if(!extensao){
+        printf("\n\tErro na alocacao de memoria. Tente novamente.\n\n");
+        system("pause");
+        return;
+    }
+    //Com base no tamanho do nome do algoritmo, a divisoria e alocada no vetor.
+    for(int i = 0; i < (tamanho_base + tamanho_nomeDoAlgoritmo); i++){
+        extensao[i] = '=';
+    }
+    printf("\n\t%s\n", extensao);
+    free(extensao);
+}
+
+/** ALOCAï¿½ï¿½O DO VETOR DINï¿½MICO **/
 int *alocacaoVetor(int extensaoVetor){
     int* vetor = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetor == NULL){
         return 0;
     }
-    /* Iniciando o gerador de números aleatorios rand() e configurando a semente
-    de srand para o tempo atual para sempre gerar números diferentes */
+    /* Iniciando o gerador de nï¿½meros aleatorios rand() e configurando a semente
+    de srand para o tempo atual para sempre gerar nï¿½meros diferentes */
     srand(time(NULL));
     for(int i = 0; i < extensaoVetor; i++){
-        vetor[i] = rand() % 100; // Preenchendo o vetor com números de 0 - 100
+        vetor[i] = rand() % 100; // Preenchendo o vetor com nï¿½meros de 0 - 100
     }
     return vetor;
 }
@@ -108,7 +134,7 @@ char* nomeAlgoritmo(int escolhaAlgoritmo){
     }
 }
 
-/** ALOCAÇÃO DO MELHOR VETOR **/
+/** ALOCAï¿½ï¿½O DO MELHOR VETOR **/
 int* melhorVetor(int extensaoVetor){
     int* vetorMelhorCaso = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetorMelhorCaso == NULL){
@@ -122,7 +148,7 @@ int* melhorVetor(int extensaoVetor){
     return vetorMelhorCaso;
 }
 
-/** ALOCAÇÃO DO PIOR VETOR **/
+/** ALOCAï¿½ï¿½O DO PIOR VETOR **/
 int* piorVetor(int extensaoVetor){
     int* vetorPiorCaso = (int*) calloc(extensaoVetor,sizeof(int));
     if(vetorPiorCaso == NULL){
@@ -147,7 +173,7 @@ double calcularTempo(struct timeval start, struct timeval end) {
     return total_time;
 }
 
-/** COLETA O MELHOR E PIOR CENÁRIO DE ORDENAÇÃO **/
+/** COLETA O MELHOR E PIOR CENï¿½RIO DE ORDENAï¿½ï¿½O **/
 void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
     struct timeval start, end; //biblioteca <sys/time.h>
     double total_time;
@@ -178,7 +204,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
 
     // Algoritmos Merge e Quick precisam de mais argumentos que os outros
     if(escolhaAlgoritmo == 5 || escolhaAlgoritmo == 6){
-        // Cria-se um ponteiro para a função
+        // Cria-se um ponteiro para a funï¿½ï¿½o
         void (*algoritmo)(int*, int, int);
         algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
         if(!algoritmo){
@@ -200,7 +226,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         algoritmo(vetorPiorCaso, 0, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
         free(vetorPiorCaso);
     }else{
         void (*algoritmo)(int*, int);
@@ -222,12 +248,12 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         algoritmo(vetorPiorCaso, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
         free(vetorPiorCaso);
     }
 }
 
-/** FUNÇÃO CHAMADA NO ARQUIVO PRINCIPAL / COLETA O TEMPO MÉDIO DE ORDENAÇÃO DE 10 VETORES ALEATÓRIOS **/
+/** FUNï¿½ï¿½O CHAMADA NO ARQUIVO PRINCIPAL / COLETA O TEMPO Mï¿½DIO DE ORDENAï¿½ï¿½O DE 10 VETORES ALEATï¿½RIOS **/
 void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
     struct timeval start, end; //sys/time.h
     double total_time, mediaTempoDeExecucao = 0;
@@ -269,10 +295,11 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t===========================================\n");
+        extensorDivisoria(nomeDoAlgoritmo);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t===========================================\n\n");
+        extensorDivisoria(nomeDoAlgoritmo);
+        printf("\n");
     }else{
         void (*algoritmo)(int*, int);
         algoritmo = escolheAlgoritmo(escolhaAlgoritmo);
@@ -295,10 +322,72 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             mediaTempoDeExecucao += total_time;
             free(vetor);
         }
-        printf("\n\t===========================================\n");
+        extensorDivisoria(nomeDoAlgoritmo);
         printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
-        printf("\t===========================================\n\n");
+        extensorDivisoria(nomeDoAlgoritmo);
+        printf("\n");
+    }
+}
+
+/** ALGORITMO BUBBLESORT **/
+void bubbleSort(int *v, int n){
+    int i, continua, aux, fim = n;
+    do{
+        continua = 0;
+        for(i = 0; i < fim - 1; i++){
+            if(v[i] > v[i+1]){
+                aux = v[i];
+                v[i] = v[i+1];
+                v[i+1] = aux;
+                continua = i;
+            }
+        }
+        fim--;
+    }while(continua != 0);
+}
+
+/** ALGORITMO INSERTIONSORT **/
+void insertionSort(int *v, int n){
+    int i, j, aux;
+    for(i = 1; i < n; i++){
+        aux = v[i];
+        for(j = i; (j > 0) && (aux < v[j - 1]); j--){
+            v[j] = v[j - 1];
+        }
+        v[j] = aux;
+    }
+}
+
+/** ALGORITMO SELECTIONSORT **/
+void selectionSort(int *v, int n){
+    int i, j, menor, troca;
+    for(i = 0; i < n; i++){
+        menor = i;
+        for(j = i; j < n; j++){
+            if(v[j] < v[menor]){
+                menor = j;
+            }
+        }
+        if(i != menor){
+            troca = v[i];
+            v[i] = v[menor];
+            v[menor] = troca;
+        }
+   }
+}
+
+/** ALGORITMO SHELLSORT **/
+void shellsort(int *vetor, int tamanho) {
+    int intervalo, i, j, temp;
+    for (intervalo = tamanho / 2; intervalo > 0; intervalo /= 2) {
+        for (i = intervalo; i < tamanho; i++) {
+            temp = vetor[i];
+            for (j = i; j >= intervalo && vetor[j - intervalo] > temp; j -= intervalo) {
+                vetor[j] = vetor[j - intervalo];
+            }
+            vetor[j] = temp;
+        }
     }
 }
 
@@ -415,12 +504,12 @@ void merge(int *v, int inicio, int meio, int fim){
 }
 
 /** ALGORITMO QUICKSORT **/
-// Versão mais eficiente do quick - 2 elementos são movimentados por vez
+// Versï¿½o mais eficiente do quick - 2 elementos sï¿½o movimentados por vez
 int particiona(int *V, int inicio, int final){
     int esq, dir, pivo, aux;
     esq = inicio;
     dir = final;
-    //pivo é a mediana - elemento usado para comparações
+    //pivo ï¿½ a mediana - elemento usado para comparaï¿½ï¿½es
     pivo = (V[inicio] + V[final] + V[(inicio + final) / 2]) / 3;
     while(esq < dir){
         while(esq < final && V[esq] <= pivo)

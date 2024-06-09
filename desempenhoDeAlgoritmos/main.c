@@ -22,7 +22,7 @@ int main()
             while(!(escolhaElementos >= 1 && escolhaElementos <= 7)){
                 system("cls");
                 //escolha da quantidade de elementos
-                escolhaMenuElementos();
+                escolhaMenuElementos(escolhaAlgoritmo);
                 scanf(" %d", &escolhaElementos);
                 if(escolhaElementos < 1 || escolhaElementos > 7){
                     printf("\n\tERRO - Valor invalido. Por favor, insira um valido.\n\n");
@@ -30,7 +30,7 @@ int main()
                     fflush(stdin);
                     continue;
                 }
-                //volta para a seleção de algoritmo
+                //volta para a seleï¿½ï¿½o de algoritmo
                 if(escolhaElementos == 7){
                     continue;
                 }

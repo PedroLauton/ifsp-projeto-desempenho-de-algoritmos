@@ -1,6 +1,10 @@
+#include <sys/time.h>
+
 void escolhaMenuAlgoritmos();
 
-void escolhaMenuElementos();
+void escolhaMenuElementos(int escolhaAlgoritmo);
+
+void extensorDivisoria(char* nomeDoAlgoritmo);
 
 int *alocacaoVetor(int extensaoVetor);
 
