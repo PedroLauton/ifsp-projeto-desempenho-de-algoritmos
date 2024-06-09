@@ -30,7 +30,7 @@ int main()
                     fflush(stdin);
                     continue;
                 }
-                //volta para a seleção de algoritmo
+                //volta para a seleï¿½ï¿½o de algoritmo
                 if(escolhaElementos == 7){
                     continue;
                 }
