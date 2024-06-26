@@ -8,7 +8,7 @@
 
 
 //Define do TIMSORT
-#define MIN_RUN 60
+#define RUN 60
 
 /** MENU PRINCIPAL **/
 void escolhaMenuAlgoritmos(){
@@ -82,7 +82,7 @@ int *alocacaoVetor(int extensaoVetor){
     de srand para o tempo atual para sempre gerar n�meros diferentes */
     srand(time(NULL));
     for(int i = 0; i < extensaoVetor; i++){
-        vetor[i] = rand() % 100; // Preenchendo o vetor com n�meros de 0 - 100
+        vetor[i] = rand() % extensaoVetor; // Preenchendo o vetor com n�meros de 0 - extensaoVetor
     }
     return vetor;
 }
@@ -219,14 +219,14 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         gettimeofday(&end, NULL);
         //realiza o calculo
         total_time = calcularTempo(start, end);
-        printf("\tMelhor tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        printf("\tMelhor tempo de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n\n\n", nomeDoAlgoritmo, total_time, total_time/1000000);
         free(vetorMelhorCaso);
 
         gettimeofday(&start, NULL);
         algoritmo(vetorPiorCaso, 0, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n", nomeDoAlgoritmo, total_time, total_time/1000000);
         free(vetorPiorCaso);
     }else{
         void (*algoritmo)(int*, int);
@@ -241,14 +241,14 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         algoritmo(vetorMelhorCaso, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tMelhor tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        printf("\tMelhor tempo de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n\n\n", nomeDoAlgoritmo, total_time, total_time/1000000);
         free(vetorMelhorCaso);
 
         gettimeofday(&start, NULL);
         algoritmo(vetorPiorCaso, extensaoVetor);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
-        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos\n", nomeDoAlgoritmo, total_time);
+        printf("\tPior tempo de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n", nomeDoAlgoritmo, total_time, total_time/1000000);
         free(vetorPiorCaso);
     }
 }
@@ -296,7 +296,7 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             free(vetor);
         }
         extensorDivisoria(nomeDoAlgoritmo);
-        printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
+        printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10), (mediaTempoDeExecucao / 10)/1000000);
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
         extensorDivisoria(nomeDoAlgoritmo);
         printf("\n");
@@ -323,7 +323,7 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             free(vetor);
         }
         extensorDivisoria(nomeDoAlgoritmo);
-        printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10));
+        printf("\n\tTempo medio de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n\n\n", nomeDoAlgoritmo, (mediaTempoDeExecucao / 10), (mediaTempoDeExecucao / 10)/1000000);
         medicaoDeTempoMelhorPiorCaso(escolhaAlgoritmo, escolhaElementos);
         extensorDivisoria(nomeDoAlgoritmo);
         printf("\n");
@@ -380,68 +380,7 @@ void selectionSort(int *v, int n){
 /** ALGORITMO SHELLSORT **/
 void shellsort(int *vetor, int tamanho) {
     int intervalo, i, j, temp;
-    for (intervalo = tamanho / 2; intervalo > 0; intervalo /= 2) {
-        for (i = intervalo; i < tamanho; i++) {
-            temp = vetor[i];
-            for (j = i; j >= intervalo && vetor[j - intervalo] > temp; j -= intervalo) {
-                vetor[j] = vetor[j - intervalo];
-            }
-            vetor[j] = temp;
-        }
-    }
-}
-
-/** ALGORITMO BUBBLESORT **/
-void bubbleSort(int *v, int n){
-    int i, continua, aux, fim = n;
-    do{
-        continua = 0;
-        for(i = 0; i < fim - 1; i++){
-            if(v[i] > v[i+1]){
-                aux = v[i];
-                v[i] = v[i+1];
-                v[i+1] = aux;
-                continua = i;
-            }
-        }
-        fim--;
-    }while(continua != 0);
-}
-
-/** ALGORITMO INSERTIONSORT **/
-void insertionSort(int *v, int n){
-    int i, j, aux;
-    for(i = 1; i < n; i++){
-        aux = v[i];
-        for(j = i; (j > 0) && (aux < v[j - 1]); j--){
-            v[j] = v[j - 1];
-        }
-        v[j] = aux;
-    }
-}
-
-/** ALGORITMO SELECTIONSORT **/
-void selectionSort(int *v, int n){
-    int i, j, menor, troca;
-    for(i = 0; i < n; i++){
-        menor = i;
-        for(j = i; j < n; j++){
-            if(v[j] < v[menor]){
-                menor = j;
-            }
-        }
-        if(i != menor){
-            troca = v[i];
-            v[i] = v[menor];
-            v[menor] = troca;
-        }
-   }
-}
-
-/** ALGORITMO SHELLSORT **/
-void shellsort(int *vetor, int tamanho) {
-    int intervalo, i, j, temp;
-    for (intervalo = tamanho / 2; intervalo > 0; intervalo /= 2) {
+    for (intervalo = 1; intervalo < tamanho / 9; intervalo = 3 * intervalo + 1) {
         for (i = intervalo; i < tamanho; i++) {
             temp = vetor[i];
             for (j = i; j >= intervalo && vetor[j - intervalo] > temp; j -= intervalo) {
@@ -503,98 +442,98 @@ void merge(int *v, int inicio, int meio, int fim){
     free(temp);
 }
 
-/** ALGORITMO QUICKSORT **/
-// Vers�o mais eficiente do quick - 2 elementos s�o movimentados por vez
-int particiona(int *V, int inicio, int final){
-    int esq, dir, pivo, aux;
-    esq = inicio;
-    dir = final;
-    //pivo � a mediana - elemento usado para compara��es
-    pivo = (V[inicio] + V[final] + V[(inicio + final) / 2]) / 3;
-    while(esq < dir){
-        while(esq < final && V[esq] <= pivo)
-            esq++;
-        while(esq < dir && V[dir] > pivo)
-            dir--;
+/** ALGORITMO QUICK **/
+void quickSort(int *vetor, int esquerda, int direita) {
+    int i, j, pivo, aux;
+    i = esquerda;
+    j = direita;
+    pivo = vetor[(esquerda + direita) / 2];
 
-        if(esq < dir){
-            aux = V[esq];
-            V[esq] = V[dir];
-            V[dir] = aux;
+    while (i <= j) {
+        while (vetor[i] < pivo && i < direita) {
+            i++;
+        }
+        while (vetor[j] > pivo && j > esquerda) {
+            j--;
+        }
+        if (i <= j) {
+            aux = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = aux;
+            i++;
+            j--;
         }
     }
-    return dir;
-}
-void quickSort(int *V, int inicio, int fim) {
-    int pivo;
-    if(fim > inicio){
-        pivo = particiona(V, inicio, fim);
-        quickSort(V, inicio, pivo-1);
-        quickSort(V, pivo+1, fim);
+    if (j > esquerda) {
+        quickSort(vetor, esquerda, j);
+    }
+    if (i < direita) {
+        quickSort(vetor, i, direita);
     }
 }
 
 /** ALGORITMO HEAPSORT **/
-void heapify(int *vetor, int tamanho, int i) {
-    int maior = i;
-    int left = 2 * i + 1;
-    int right = 2 * i + 2;
-    if (left < tamanho && vetor[left] > vetor[maior])
-        maior = left;
-    if (right < tamanho && vetor[right] > vetor[maior])
-        maior = right;
-    if (maior != i) {
-        int temp = vetor[i];
-        vetor[i] = vetor[maior];
-        vetor[maior] = temp;
-        heapify(vetor, tamanho, maior);
+void heapSort(int *arr, int n) {
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(arr, n, i);
     }
-}
-void heapSort(int *vetor, int tamanho) {
-    for (int i = tamanho / 2 - 1; i >= 0; i--)
-        heapify(vetor, tamanho, i);
-    for (int i = tamanho - 1; i > 0; i--) {
-        int temp = vetor[0];
-        vetor[0] = vetor[i];
-        vetor[i] = temp;
-        heapify(vetor, i, 0);
+
+    for (int i = n - 1; i > 0; i--) {
+        trocar(&arr[0], &arr[i]);
+        heapify(arr, i, 0);
     }
 }
 
-/** ALGORITMO REDIXSORT **/
-void countSort(int *arr, int n, int exp) {
-    int *output = (int *)malloc(n * sizeof(int));
-    int count[10] = {0};
-    for (int i = 0; i < n; i++) {
-        count[(arr[i] / exp) % 10]++;
+void heapify(int *arr, int n, int i) {
+    int iMaior = i;
+    int iEsq = 2 * i + 1;
+    int iDir = 2 * i + 2;
+
+    if (iEsq < n && arr[iEsq] > arr[iMaior])
+        iMaior = iEsq;
+
+    if (iDir < n && arr[iDir] > arr[iMaior])
+        iMaior = iDir;
+
+    if (iMaior != i) {
+        trocar(&arr[i], &arr[iMaior]);
+        heapify(arr, n, iMaior);
     }
-    for (int i = 1; i < 10; i++) {
-        count[i] += count[i - 1];
-    }
-    for (int i = n - 1; i >= 0; i--) {
-        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-        count[(arr[i] / exp) % 10]--;
-    }
-    for (int i = 0; i < n; i++) {
-        arr[i] = output[i];
+}
+
+void trocar(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/** ALGORITMO RADIXSORT **/
+void radixSort(int *vetor, int tamanho){
+    int i;
+    int *b;
+    int maior = vetor[0];
+    int exp = 1;
+
+    b = (int *)calloc(tamanho, sizeof(int));
+
+    for (i = 0; i < tamanho; i++) {
+        if (vetor[i] > maior)
+    	    maior = vetor[i];
     }
 
-    free(output);
-}
-int getMax(int *arr, int n) {
-    int max = arr[0];
-    for (int i = 1; i < n; i++) {
-        if (arr[i] > max) {
-            max = arr[i];
-        }
+    while (maior/exp > 0) {
+        int bucket[10] = { 0 };
+    	for (i = 0; i < tamanho; i++)
+    	    bucket[(vetor[i] / exp) % 10]++;
+    	for (i = 1; i < 10; i++)
+    	    bucket[i] += bucket[i - 1];
+    	for (i = tamanho - 1; i >= 0; i--)
+    	    b[--bucket[(vetor[i] / exp) % 10]] = vetor[i];
+    	for (i = 0; i < tamanho; i++)
+    	    vetor[i] = b[i];
+    	exp *= 10;
     }
-    return max;
-}
-void radixSort(int *arr, int n) {
-    int max = getMax(arr, n);
-    for (int exp = 1; max / exp > 0; exp *= 10) {
-        countSort(arr, n, exp);
-    }
+    free(b);
 }
 
 /** ALGORITMO COUNTINGSORT **/
@@ -622,63 +561,84 @@ int* countingSort(int array[], int tamanho) {
 }
 
 /** ALGORITMO TIMSORT **/
-int minRunLength(int n) {
-    int r = 0;
-    while (n >= MIN_RUN) {
-        r |= (n & 1);
-        n >>= 1;
+void timSort(int *arr, unsigned int size) {
+    if (arr == NULL || size <= 1) return;
+    for (int i=0; i < size; i+=RUN) {
+        insertionTim(arr, i, minsort(i+RUN-1, size-1));
     }
-    return n + r;
+
+    int* temp = (int*)malloc(sizeof(int)*size);
+
+
+    int l, m, r, n;
+    for (n=RUN; n < size; n*=2) {
+        for (l=0; l < size; l+=2*n) {
+            m = l+n-1;
+            r = minsort(l+2*n-1, size-1);
+            if (m<r) {
+                mergeTim(arr, temp, l, m, r);
+            }
+        }
+    }
+    free(temp);
 }
-void insertionSortTim(int *v, int left, int right) {
-    for (int i = left + 1; i <= right; i++) {
-        int aux = v[i];
-        int j = i;
-        while (j > left && aux < v[j - 1]) {
-            v[j] = v[j - 1];
+
+int minsort(int arg1, int arg2) {
+    if (arg1 <= arg2) {
+        return arg1;
+    } else {
+        return arg2;
+    }
+}
+
+void insertionTim(int *arr, int l, int r) {
+    if (arr == NULL || l>=r) return;
+
+    int key;
+    int i, j;
+    for (i=l+1; i<=r; i++) {
+        key = arr[i];
+        j = i-1;
+        while (j>=l && arr[j]>key) {
+            arr[j+1] = arr[j];
             j--;
         }
-        v[j] = aux;
+        arr[j+1] = key;
     }
-}
-void timSort(int *vetor, int n) {
-    int minRun = minRunLength(n);
-    for (int start = 0; start < n; start += minRun) {
-        int end = (start + minRun - 1 < n - 1) ? (start + minRun - 1) : (n - 1);
-        insertionSortTim(vetor, start, end);
-    }
-    int size = minRun;
-    while (size < n) {
-        for (int left = 0; left < n; left += 2 * size) {
-            int mid = left + size - 1;
-            int right = (left + 2 * size - 1 < n - 1) ? (left + 2 * size - 1) : (n - 1);
-            mergeTim(vetor, left, mid, right);
-        }
-        size = 2 * size;
-    }
-}
-/** ALGORITMO MERGE do TimSort **/
-void mergeTim(int *v, int l, int m, int r) {
-    int len1 = m - l + 1;
-    int len2 = r - m;
-    int *left = (int *)malloc(len1 * sizeof(int));
-    int *right = (int *)malloc(len2 * sizeof(int));
-    for (int i = 0; i < len1; i++)
-        left[i] = v[l + i];
-    for (int j = 0; j < len2; j++)
-        right[j] = v[m + 1 + j];
 
-    int i = 0, j = 0, k = l;
-    while (i < len1 && j < len2) {
-        if (left[i] <= right[j])
-            v[k++] = left[i++];
-        else
-            v[k++] = right[j++];
+}
+
+void mergeTim(int arr[], int temp[], int l, int m, int r) {
+    if (arr == NULL || temp == NULL) return;
+    if (l > m || m+1 > r) return;
+
+    int i = l;
+    int j = m + 1;
+    int start = l;
+
+    while (i <= m && j <= r) {
+        if (arr[i] < arr[j]) {
+            temp[start++] = arr[i++];
+        } else if (arr[i] == arr[j]) {
+
+            temp[start++] = arr[i++];
+            temp[start++] = arr[j++];
+        } else {
+            temp[start++] = arr[j++];
+        }
+
     }
-    while (i < len1)
-        v[k++] = left[i++];
-    while (j < len2)
-        v[k++] = right[j++];
-    free(left);
-    free(right);
+
+    while (i <= m) {
+        temp[start++] = arr[i++];
+    }
+
+
+    while (j <= r) {
+        temp[start++] = arr[j++];
+    }
+
+    for (i = l; i <= r; i++) {
+        arr[i] = temp[i];
+    }
 }

@@ -10,6 +10,8 @@ int *alocacaoVetor(int extensaoVetor);
 
 int escolheValor(int escolhaElementos);
 
+void* escolheAlgoritmo(int escolhaAlgoritmo);
+
 char* nomeAlgoritmo(int escolhaAlgoritmo);
 
 int* melhorVetor(int extensaoVetor);
@@ -34,26 +36,22 @@ void mergeSort(int *v, int inicio, int fim);
 
 void merge(int *v, int inicio, int meio, int fim);
 
-int particiona(int *V, int inicio, int final );
+void quickSort(int *V, int esquerda, int direita);
 
-void quickSort(int *V, int inicio, int fim);
+void heapSort(int *arr, int n);
 
-void heapify(int *vetor, int tamanho, int i);
+void heapify(int *arr, int n, int i);
 
-void heapSort(int *vetor, int tamanho);
+void trocar(int *a, int *b);
 
-void countSort(int *arr, int n, int exp);
-
-int getMax(int *arr, int n);
-
-void radixSort(int *arr, int n);
+void radixSort(int *vetor, int tamanho);
 
 int* countingSort(int array[], int tamanho);
 
-void timSort(int *v, int n);
+void timSort(int *arr, unsigned int size);
 
-int minRunLength(int n);
+int minsort(int arg1, int arg2);
 
-void insertionSortTim(int *v, int left, int right);
+void insertionTim(int *arr, int l, int r);
 
-void mergeTim(int *v, int l, int m, int r);
+void mergeTim(int arr[], int temp[], int l, int m, int r);
