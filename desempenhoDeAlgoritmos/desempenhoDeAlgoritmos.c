@@ -41,12 +41,12 @@ void escolhaMenuElementos(int escolhaAlgoritmo){
 
     printf(
         "\n\t======== QUANTIDADE DE ELEMENTOS - %s ========\n\n"
-        "\t\t 1. 1.000\n"
-        "\t\t 2. 5.000\n"
-        "\t\t 3. 10.000\n"
-        "\t\t 4. 20.000\n"
-        "\t\t 5. 50.000\n"
-        "\t\t 6. 100.000\n\n"
+        "\t\t 1. 10.000\n"
+        "\t\t 2. 50.000\n"
+        "\t\t 3. 100.000\n"
+        "\t\t 4. 200.000\n"
+        "\t\t 5. 500.000\n"
+        "\t\t 6. 1.000.000\n\n"
         "\t\t 7. Voltar\n"
         , nomeDoAlgoritmo);
     extensorDivisoria(nomeDoAlgoritmo);
@@ -90,12 +90,12 @@ int *alocacaoVetor(int extensaoVetor){
 /** ESCOLHA DA QUANTIDADE A SER ORDENADO **/
 int escolheValor(int escolhaElementos){
     switch(escolhaElementos){
-        case 1: return 1000;
-        case 2: return 5000;
-        case 3: return 10000;
-        case 4: return 20000;
-        case 5: return 50000;
-        case 6: return 100000;
+        case 1: return 10000;
+        case 2: return 50000;
+        case 3: return 100000;
+        case 4: return 200000;
+        case 5: return 500000;
+        case 6: return 1000000;
         default: return 0;
     }
 }
@@ -156,8 +156,8 @@ int* piorVetor(int extensaoVetor){
         system("pause");
         return 0;
     }
-    for(int i = extensaoVetor, k = 0; i > 0 ; i--, k++){
-        vetorPiorCaso[k] = i;
+    for (int i = 0; i < extensaoVetor; i++) {
+        vetorPiorCaso[i] = extensaoVetor - i;
     }
     return vetorPiorCaso;
 }
@@ -215,7 +215,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         // pega o tempo inicial
         gettimeofday(&start, NULL);
         //executa o algoritmo selecionado
-        algoritmo(vetorMelhorCaso, 0, extensaoVetor);
+        algoritmo(vetorMelhorCaso, 0, extensaoVetor - 1);
         gettimeofday(&end, NULL);
         //realiza o calculo
         total_time = calcularTempo(start, end);
@@ -223,7 +223,7 @@ void medicaoDeTempoMelhorPiorCaso(int escolhaAlgoritmo, int escolhaElementos){
         free(vetorMelhorCaso);
 
         gettimeofday(&start, NULL);
-        algoritmo(vetorPiorCaso, 0, extensaoVetor);
+        algoritmo(vetorPiorCaso, 0, extensaoVetor - 1);
         gettimeofday(&end, NULL);
         total_time = calcularTempo(start, end);
         printf("\tPior tempo de ordenacao do %s: %.3f microssegundos; \n\tIsso equivale a %.3f segundos.\n", nomeDoAlgoritmo, total_time, total_time/1000000);
@@ -289,7 +289,7 @@ void medicaoDeTempo(int escolhaAlgoritmo, int escolhaElementos){
             }
 
             gettimeofday(&start, NULL);
-            algoritmo(vetor, 0, extensaoVetor);
+            algoritmo(vetor, 0, extensaoVetor - 1);
             gettimeofday(&end, NULL);
             total_time = calcularTempo(start, end);
             mediaTempoDeExecucao += total_time;
@@ -380,7 +380,7 @@ void selectionSort(int *v, int n){
 /** ALGORITMO SHELLSORT **/
 void shellsort(int *vetor, int tamanho) {
     int intervalo, i, j, temp;
-    for (intervalo = 1; intervalo < tamanho / 9; intervalo = 3 * intervalo + 1) {
+    for (intervalo = 1; intervalo < tamanho; intervalo = 3*intervalo+1) {
         for (i = intervalo; i < tamanho; i++) {
             temp = vetor[i];
             for (j = i; j >= intervalo && vetor[j - intervalo] > temp; j -= intervalo) {
